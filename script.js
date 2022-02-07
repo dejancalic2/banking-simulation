@@ -280,7 +280,6 @@ fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
           account.out -= TransferAmount;
           console.log(account.out);
           labelSumOut.innerHTML = account.out;
-          // account.currentBalance -= TransferAmount;
           console.log(account.currentBalance);
         }
       }
