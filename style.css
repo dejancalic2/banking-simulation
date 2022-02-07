@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #444;
   background-color: #f3f3f3;
   height: 100vh;
@@ -187,10 +187,12 @@ nav {
   position: relative;
   max-width: 100rem;
   margin: 4rem auto;
-  display: grid;
+  display: flex;
+  max-width: 80vw;
+  /* display: grid;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
-  gap: 2rem;
+  gap: 2rem; */
 
   /* NOTE This creates the fade in/out anumation */
   opacity: 0;
@@ -203,7 +205,9 @@ nav {
 } */
 
 .balance {
-  grid-column: 1 / span 2;
+  /* grid-column: 1 / span 2; */
+  max-width: 80vw;
+  margin: 0 auto;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -228,12 +232,64 @@ nav {
 
 /* MOVEMENTS */
 .movements {
-  grid-row: 2 / span 3;
+  /* grid-row: 2 / span 3; */
   background-color: #fff;
   border-radius: 1rem;
   overflow: scroll;
+  max-height: 52vh;
+}
+.left-side {
+  width: 55%;
+  margin-right: 3%;
+}
+.right-side {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.operation {
+  margin-bottom: 25px;
 }
 
+@media screen and (max-width: 991px) {
+  .app {
+    flex-direction: column;
+  }
+  .left-side {
+    width: 100%;
+    margin-right: 3%;
+  }
+  .right-side {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  nav {
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+  }
+  nav .logo {
+    margin: 20px;
+  }
+  .login {
+    display: flex;
+    flex-direction: column;
+  }
+  .login input {
+    width: 100%;
+    margin: 5px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .balance {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .movements__row {
   padding: 2.25rem 4rem;
   display: flex;
@@ -273,7 +329,7 @@ nav {
 
 /* SUMMARY */
 .summary {
-  grid-row: 5 / 6;
+  /* grid-row: 5 / 6; */
   display: flex;
   align-items: baseline;
   padding: 0 0.3rem;
@@ -348,7 +404,7 @@ h2 {
   grid-template-columns: 2.5fr 1fr 2.5fr;
 }
 .form__label--loan {
-  grid-row: 2;
+  /* grid-row: 2; */
 }
 /* End exceptions */
 
