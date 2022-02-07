@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /////////////////////////////////////////////////
 let account1;
@@ -6,11 +6,11 @@ let account2;
 let account3;
 let account4;
 
-fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
-  .then(response => {
+fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
+  .then((response) => {
     return response.json();
   })
-  .then(data => {
+  .then((data) => {
     account1 = data[0];
     account2 = data[1];
     account3 = data[2];
@@ -63,12 +63,12 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
 
     const accounts = [account1, account2, account3, account4];
 
-    let AllUsersInfoBtn = document.querySelector('.users-info-btn');
-    let AllUsersInfo = document.querySelector('.users-info');
+    let AllUsersInfoBtn = document.querySelector(".users-info-btn");
+    let AllUsersInfo = document.querySelector(".users-info");
 
-    AllUsersInfoBtn.addEventListener('click', function () {
-      AllUsersInfo.classList.toggle('active');
-      AllUsersInfo.innerHTML = '';
+    AllUsersInfoBtn.addEventListener("click", function () {
+      AllUsersInfo.classList.toggle("active");
+      AllUsersInfo.innerHTML = "";
       for (const account of accounts) {
         let userNameInfo = account.owner;
         let userPinInfo = account.pin;
@@ -84,47 +84,47 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
     });
 
     // Elements
-    const labelWelcome = document.querySelector('.welcome');
-    const labelDate = document.querySelector('.date');
-    const labelBalance = document.querySelector('.balance__value');
-    const labelSumIn = document.querySelector('.summary__value--in');
-    const labelSumOut = document.querySelector('.summary__value--out');
+    const labelWelcome = document.querySelector(".welcome");
+    const labelDate = document.querySelector(".date");
+    const labelBalance = document.querySelector(".balance__value");
+    const labelSumIn = document.querySelector(".summary__value--in");
+    const labelSumOut = document.querySelector(".summary__value--out");
     const labelSumInterest = document.querySelector(
-      '.summary__value--interest'
+      ".summary__value--interest"
     );
-    const labelTimer = document.querySelector('.timer');
+    const labelTimer = document.querySelector(".timer");
 
-    const containerApp = document.querySelector('.app');
-    const containerMovements = document.querySelector('.movements');
+    const containerApp = document.querySelector(".app");
+    const containerMovements = document.querySelector(".movements");
 
-    const btnLogin = document.querySelector('.login__btn');
-    const btnTransfer = document.querySelector('.form__btn--transfer');
-    const btnLoan = document.querySelector('.form__btn--loan');
-    const btnClose = document.querySelector('.form__btn--close');
-    const btnSort = document.querySelector('.btn--sort');
+    const btnLogin = document.querySelector(".login__btn");
+    const btnTransfer = document.querySelector(".form__btn--transfer");
+    const btnLoan = document.querySelector(".form__btn--loan");
+    const btnClose = document.querySelector(".form__btn--close");
+    const btnSort = document.querySelector(".btn--sort");
 
-    const inputLoginUsername = document.querySelector('.login__input--user');
-    const inputLoginPin = document.querySelector('.login__input--pin');
-    const inputTransferTo = document.querySelector('.form__input--to');
-    const inputTransferAmount = document.querySelector('.form__input--amount');
-    const inputLoanAmount = document.querySelector('.form__input--loan-amount');
-    const inputCloseUsername = document.querySelector('.form__input--user');
-    const inputClosePin = document.querySelector('.form__input--pin');
+    const inputLoginUsername = document.querySelector(".login__input--user");
+    const inputLoginPin = document.querySelector(".login__input--pin");
+    const inputTransferTo = document.querySelector(".form__input--to");
+    const inputTransferAmount = document.querySelector(".form__input--amount");
+    const inputLoanAmount = document.querySelector(".form__input--loan-amount");
+    const inputCloseUsername = document.querySelector(".form__input--user");
+    const inputClosePin = document.querySelector(".form__input--pin");
 
-    let loginedUser = document.querySelector('.logined-user');
+    let loginedUser = document.querySelector(".logined-user");
 
-    let movementsType = document.querySelector('.movements__type');
+    let movementsType = document.querySelector(".movements__type");
 
-    btnTransfer.addEventListener('click', function (e) {
+    btnTransfer.addEventListener("click", function (e) {
       e.preventDefault();
     });
-    btnLoan.addEventListener('click', function (e) {
+    btnLoan.addEventListener("click", function (e) {
       e.preventDefault();
     });
-    btnClose.addEventListener('click', function (e) {
+    btnClose.addEventListener("click", function (e) {
       e.preventDefault();
     });
-    btnSort.addEventListener('click', function (e) {
+    btnSort.addEventListener("click", function (e) {
       e.preventDefault();
     });
     /////////////////////////////////////////////////
@@ -132,9 +132,9 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
     // LECTURES
 
     const currencies = new Map([
-      ['USD', 'United States dollar'],
-      ['EUR', 'Euro'],
-      ['GBP', 'Pound sterling'],
+      ["USD", "United States dollar"],
+      ["EUR", "Euro"],
+      ["GBP", "Pound sterling"],
     ]);
     // LOGIN
     let initialName;
@@ -144,12 +144,12 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
     let accountPin;
 
     // User input
-    inputLoginUsername.addEventListener('keyup', function () {
+    inputLoginUsername.addEventListener("keyup", function () {
       let user = this.value.toUpperCase();
       loginUser = user;
     });
     // Password input
-    inputLoginPin.addEventListener('keyup', function () {
+    inputLoginPin.addEventListener("keyup", function () {
       let pin = this.value.toUpperCase();
       loginPin = pin;
     });
@@ -158,22 +158,22 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
     let sumNegative = 0;
     let sumPositive = 0;
 
-    btnLogin.addEventListener('click', function (e) {
+    btnLogin.addEventListener("click", function (e) {
       e.preventDefault();
-      document.querySelector('.error-login-message').style.opacity = '1';
+      document.querySelector(".error-login-message").style.opacity = "1";
       /* 
   Gleda sve postojece accounte njihovog owener-a uzima njihove inicijale uporedjuje sa podatcima iz input polja
   i ako postoji account prosledjuhe ga u getData funkciju i stampa
   */
       for (const account of accounts) {
         let accountOwner = account.owner;
-        let [name, lastName] = accountOwner.split(' ');
+        let [name, lastName] = accountOwner.split(" ");
         initialName = name[0] + lastName[0];
         accountPin = account.pin;
         if (initialName == loginUser && loginPin == accountPin) {
           loginAccount = account;
-          document.querySelector('.app').style.opacity = '1';
-          document.querySelector('.error-login-message').style.opacity = '0';
+          document.querySelector(".app").style.opacity = "1";
+          document.querySelector(".error-login-message").style.opacity = "0";
           sumPositive = 0;
           sumNegative = 0;
           for (const negativeVal of account.movements) {
@@ -190,8 +190,8 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
         }
       }
       getData();
-      inputLoginUsername.value = '';
-      inputLoginPin.value = '';
+      inputLoginUsername.value = "";
+      inputLoginPin.value = "";
     });
 
     // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -199,13 +199,13 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
     ///////////////////////// Request loan ////////////////////////
 
     function getData() {
-      containerMovements.innerHTML = '';
+      containerMovements.innerHTML = "";
       let bla = loginAccount.movements.length + 1;
       for (let [index, movement] of loginAccount.movements.entries()) {
         bla--;
         movement > 0
-          ? (movementsType = 'deposit')
-          : (movementsType = 'withdrawal');
+          ? (movementsType = "deposit")
+          : (movementsType = "withdrawal");
         containerMovements.innerHTML += `
       <div class="movements__row">
         <div class="movements__type movements__type--${movementsType}">${bla} ${movementsType}</div>
@@ -218,13 +218,13 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
       loginedUser.innerHTML = `Hi! ${loginAccount.owner}`;
     }
 
-    let inputLoan = '';
+    let inputLoan = "";
 
-    inputLoanAmount.addEventListener('keyup', function () {
+    inputLoanAmount.addEventListener("keyup", function () {
       inputLoan = Number(this.value);
     });
 
-    btnLoan.addEventListener('click', function () {
+    btnLoan.addEventListener("click", function () {
       loginAccount.movements.unshift(inputLoan);
       getData();
       labelBalance.innerHTML = `${(loginAccount.currentBalance =
@@ -235,12 +235,12 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
       labelSumIn.innerHTML = a + inputLoan;
 
       const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(accounts),
       };
       fetch(
-        'https://banking-dbfae-default-rtdb.firebaseio.com/users.json',
+        "https://banking-dbfae-default-rtdb.firebaseio.com/users.json",
         requestOptions
       );
     });
@@ -250,22 +250,22 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
     let transferTo;
     let TransferAmount;
 
-    inputTransferTo.addEventListener('keyup', function () {
+    inputTransferTo.addEventListener("keyup", function () {
       transferTo = this.value.toUpperCase();
     });
 
-    inputTransferAmount.addEventListener('keyup', function () {
+    inputTransferAmount.addEventListener("keyup", function () {
       TransferAmount = Number(this.value);
     });
 
-    btnTransfer.addEventListener('click', function () {
+    btnTransfer.addEventListener("click", function () {
       loginAccount.movements.unshift(TransferAmount - TransferAmount * 2);
 
       // account kome prebacuje novac
 
       for (const account of accounts) {
         let accountOwner = account.owner;
-        let [name, lastName] = accountOwner.split(' ');
+        let [name, lastName] = accountOwner.split(" ");
         initialName = name[0] + lastName[0];
         if (initialName == transferTo) {
           account.movements.unshift(TransferAmount);
@@ -273,26 +273,26 @@ fetch('https://banking-dbfae-default-rtdb.firebaseio.com/users.json')
         }
       }
       for (const account of accounts) {
-        let a = loginedUser.textContent.replaceAll('Hi! ', '');
+        let a = loginedUser.textContent.replaceAll("Hi! ", "");
         let b = account.owner;
         if (a == b) {
           account.currentBalance -= TransferAmount;
           account.out -= TransferAmount;
           console.log(account.out);
           labelSumOut.innerHTML = account.out;
-          account.currentBalance -= TransferAmount;
+          // account.currentBalance -= TransferAmount;
           console.log(account.currentBalance);
         }
       }
       getData();
-      console.log('AAAAA');
+      console.log("AAAAA");
       const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(accounts),
       };
       fetch(
-        'https://banking-dbfae-default-rtdb.firebaseio.com/users.json',
+        "https://banking-dbfae-default-rtdb.firebaseio.com/users.json",
         requestOptions
       );
     });
