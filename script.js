@@ -16,50 +16,7 @@ fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
     account3 = data[2];
     account4 = data[3];
 
-    console.log(account4);
-
     /////////////////////////////////////////////////
-    // BANKIST APP
-    // Data
-    // const account1 = {
-    //   owner: 'Dejan Calic',
-    //   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-    //   interestRate: 1.2, // %
-    //   pin: 1111,
-    //   currentBalance: 25000,
-    //   in: '',
-    //   out: '',
-    // };
-
-    // const account2 = {
-    //   owner: 'Ivana Calic',
-    //   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-    //   interestRate: 1.5,
-    //   pin: 2222,
-    //   currentBalance: 11000,
-    //   in: '',
-    //   out: '',
-    // };
-
-    // const account3 = {
-    //   owner: 'Pera Peric',
-    //   movements: [200, -200, 340, -300, -20, 50, 400, -460],
-    //   interestRate: 0.7,
-    //   pin: 3333,
-    //   currentBalance: 35000,
-    //   in: '',
-    //   out: '',
-    // };
-
-    // const account4 = {
-    //   owner: 'Mile Simic',
-    //   movements: [430, 1000, 700, 50, 90],
-    //   interestRate: 1,
-    //   pin: 4444,
-    //   currentBalance: 65000,
-    //   in: '',
-    //   out: '',
-    // };
 
     const accounts = [account1, account2, account3, account4];
 
@@ -161,10 +118,7 @@ fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
     btnLogin.addEventListener("click", function (e) {
       e.preventDefault();
       document.querySelector(".error-login-message").style.opacity = "1";
-      /* 
-  Gleda sve postojece accounte njihovog owener-a uzima njihove inicijale uporedjuje sa podatcima iz input polja
-  i ako postoji account prosledjuhe ga u getData funkciju i stampa
-  */
+
       for (const account of accounts) {
         let accountOwner = account.owner;
         let [name, lastName] = accountOwner.split(" ");
@@ -226,6 +180,7 @@ fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
 
     btnLoan.addEventListener("click", function () {
       loginAccount.movements.unshift(inputLoan);
+      loginAccount.movements = loginAccount.movements.slice(0, 10);
       getData();
       labelBalance.innerHTML = `${(loginAccount.currentBalance =
         loginAccount.currentBalance + inputLoan)}€`;
@@ -278,13 +233,12 @@ fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
         if (a == b) {
           account.currentBalance -= TransferAmount;
           account.out -= TransferAmount;
-          console.log(account.out);
+          // console.log(account.out);
           labelSumOut.innerHTML = account.out;
-          console.log(account.currentBalance);
+          // console.log(account.currentBalance);
         }
       }
       getData();
-      console.log("AAAAA");
       const requestOptions = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -295,4 +249,24 @@ fetch("https://banking-dbfae-default-rtdb.firebaseio.com/users.json")
         requestOptions
       );
     });
+
+    // function clear() {
+    //   let asd = data[0].movements.splice(0, 6);
+    //   console.log(asd);
+    //   const www = {
+    //     method: "PUT",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(asd),
+    //   };
+    //   fetch(
+    //     "https://banking-dbfae-default-rtdb.firebaseio.com/users/0/movements",
+    //     www
+    //   );
+    // }
+    // const clearmov = document.querySelector(".clear-move");
+
+    // clearmov.addEventListener("click", function () {
+    //   getData();
+    //   clear();
+    // });
   });
